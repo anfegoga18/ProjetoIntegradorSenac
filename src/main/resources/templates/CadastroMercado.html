@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><!--Tags que fazem
+    referência ao thymeleaf e o xhtml-->
+
+<head th:insert="~{Head.html}"> <!--Cá estamos aproveitando código para não ter que mexer em todas as
+    vistas, apenas uma já facilita a manutenção do código-->
+</head>
+
+<!--Inserindo fragmentos de código para reutilizar em outros projetos, nesse caso uma barra de navegação
+No fragmento está a parte :: nav, aquilo quer dizer que o nome do fragmento vai ser nav-->
+<header th:insert="~{Navbar.html :: nav}"></header>
+
+<body>
+    <h1>Página de cadastro de Mercado</h1>
+    
+    <p>Bem-vindo, cá pode fazer o cadastro dos mercados no banco de dados</p>
+    
+<!--Cuidar para que o que está entre ${} seja o nome passado no objeto Model que vai em forma de 
+chave : valor , pois não tem a ver como está instanciado o objeto e sim a nome no model.-->
+
+    <div class="formMercados">
+
+        <form th:action="@{/mercados/cadastroMercados}" method="POST" th:object="${MercadoEntity}"><!--O th:object nos diz o tipo de objeto que está sendo passado no POST-->
+            <div class="cadastro-mercado">
+                <p>
+                    <label for="id">Id: </label>
+                    <input type="hidden" th:field="${Mercado.id}" /><!--Fica como hidden para evitar inserir um id que já é gerenciado pelo banco de dados, mas necessário quando há atualização num registro-->
+                </p>
+                
+                <p>
+                    <label for="nome">Nome: </label> 
+                    <input type="text" th:field="${Mercado.nome}" />
+                </p>
+                
+                <p>
+                    <label for="endereco">Endereço: </label> 
+                    <input type="text" th:field="${Mercado.endereco}" />
+                </p>
+                
+                
+                <p>
+                    <label for="numero">Número: </label> 
+                    <input type="text" th:field="${Mercado.numero}" />
+                </p>
+                
+                <p>
+                    <label for="cep">CEP: </label> 
+                    <input type="text" th:field="${Mercado.cep}" />
+                </p>
+                
+                <p>
+                    <label for="cidade">Cidade: </label> 
+                    <input type="text" th:field="${Mercado.cidade}" />
+                </p>
+                
+                <p>
+                    <label for="telefone">Telefone: </label> 
+                    <input type="text" th:field="${Mercado.telefone}" />
+                </p>
+                
+                <p>
+                    <label for="site">Página web: </label> 
+                    <input type="text" th:field="${Mercado.site}" />
+                </p>
+                
+                <p>
+                    <label for="tele_entrega">Tele-entrega?: </label> 
+                    <input type="text" th:field="${Mercado.tele_entrega}" />
+                </p>
+                
+                <p>
+                    <label for="uf">UF/Estado/Dpto:  </label> 
+                    <input type="text" th:field="${Mercado.uf}" />
+                </p>
+
+            </div>    
+                
+            <div class="botoes-cadastro">
+                <button type="submit"> Cadastrar </button>
+            </div>
+            
+        </form>
+
+    </div>
+
+</body>
+</html>

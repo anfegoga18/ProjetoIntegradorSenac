@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><!--Tags que fazem
+    referência ao thymeleaf e o xhtml-->
+
+<head th:insert="~{head.html}"> <!--Cá estamos aproveitando código para não ter que mexer em todas as
+    vistas, apenas uma já facilita a manutenção do código-->
+</head>
+
+<!--Inserindo fragmentos de código para reutilizar em outros projetos, nesse caso uma barra de navegação
+No fragmento está a parte :: nav, aquilo quer dizer que o nome do fragmento vai ser nav-->
+<header th:insert="~{navbar.html :: nav}"></header>
+
+<body>
+    <h2>Mercado cadastrado com sucesso!</h2>
+        
+<!--Cuidar para que o que está entre ${} seja o nome passado no objeto Model que vai em forma de 
+chave : valor pois não tem a ver como está instanciado o objeto e sim a nome no model. -->
+
+    <div class="formMercados">
+
+            <div class="cadastro-mercado">
+                <p>
+                    <label for="id">Id: </label>
+                    <span type="text" th:field="${Mercado.id}" /></span>
+                </p>
+                
+                <p>
+                    <label for="nome">Nome: </label> 
+                    <span type="text" th:field="${Mercado.nome}" /></span>
+                </p>
+                
+                <p>
+                    <label for="endereco">Endereço: </label> 
+                    <span type="text" th:field="${Mercado.endereco}" /></span>
+                </p>
+                
+                
+                <p>
+                    <label for="numero">Número: </label> 
+                    <span type="text" th:field="${Mercado.numero}" /></span>
+                </p>
+                
+                <p>
+                    <label for="cep">CEP: </label> 
+                    <span type="text" th:field="${Mercado.cep}" /></span>
+                </p>
+                
+                <p>
+                    <label for="cidade">Cidade: </label> 
+                    <span type="text" th:field="${Mercado.cidade}" /></span>
+                </p>
+                
+                <p>
+                    <label for="telefone">Telefone: </label> 
+                    <span type="text" th:field="${Mercado.telefone}" /></span>
+                </p>
+                
+                <p>
+                    <label for="site">Página web: </label> 
+                    <span type="text" th:field="${Mercado.site}" /></span>
+                </p>
+                
+                <p>
+                    <label for="tele_entrega">Tele-entrega?: </label> 
+                    <span type="text" th:field="${Mercado.tele_entrega}" /></span>
+                </p>
+                
+                <p>
+                    <label for="uf">UF/Estado/Dpto:  </label> 
+                    <span type="text" th:field="${Mercado.uf}" /></span>
+                </p>
+            </div>    
+
+    </div>
+
+</body>
+</html>
