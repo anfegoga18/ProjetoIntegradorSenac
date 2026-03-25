@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><!--Tags que fazem
+    referência ao thymeleaf e o xhtml-->
+
+<head th:insert="~{Head.html}"> <!--Cá estamos aproveitando código para não ter que mexer em todas as
+    vistas, apenas uma já facilita a manutenção do código-->
+</head>
+
+<!--Inserindo fragmentos de código para reutilizar em outros projetos, nesse caso uma barra de navegação
+No fragmento está a parte :: nav, aquilo quer dizer que o nome do fragmento vai ser nav-->
+<header th:insert="~{Navbar.html :: nav}"></header>
+
+<body>
+    <h1>Página de cadastro de  Red de Mercados</h1>
+    
+    <p>Bem-vindo, cá pode fazer o cadastro da rede de supermercados</p>
+    
+<!--Cuidar para que o que está entre ${} seja o nome passado no objeto Model que vai em forma de 
+chave : valor , pois não tem a ver como está instanciado o objeto e sim a nome no model.-->
+
+    <div class="formMercados">
+
+        <form th:action="@{/mercados/cadastroMercados/red}" method="POST" th:object="${RedEntity}"><!--O th:object nos diz o tipo de objeto que está sendo passado no POST-->
+            <div class="cadastro-mercado">
+                <p>
+                    <label for="id">Id: </label>
+                    <input type="hidden" th:field="${Red.id}" /><!--Fica como hidden para evitar inserir um id que já é gerenciado pelo banco de dados, mas necessário quando há atualização num registro-->
+                </p>
+                
+                <p>
+                    <label for="nomeRed">Red: </label> 
+                    <input type="text" th:field="${Red.nomeRed}" required/>
+                </p>
+
+
+            </div>    
+                
+            <div class="botoes-cadastro">
+                <button type="submit"> Cadastrar Red </button>
+            </div>
+            
+        </form>
+
+    </div>
+
+</body>
+</html>

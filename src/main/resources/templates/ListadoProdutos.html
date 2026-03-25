@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head th:insert="~{head.html}"></head>
+
+<!--Inserindo fragmentos de código para reutilizar em outros projetos, nesse caso uma barra de navegação
+No fragmento está a parte :: nav, aquilo quer dizer que o nome do fragmento vai ser nav-->
+<header th:insert="~{navbar.html :: nav}"></header>
+
+<body>
+    <h2>Resultados da busca</h2>
+
+    <!--Vindo resultados na busca-->
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Categoria</th>
+                <th>Marca</th>
+                <th>Ud Medida</th>
+                <th>Qde Conteudo</th>
+                <!--  <th>Preço</th> -->
+                <th>Moeda</th>
+                <!--  <th>Data Preço</th>
+                  <th>Data Validade</th> -->
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="produto : ${Produtos}">
+            <!--Atenção com o nome da lista de produtos no controlador, a lista é com p minusculo
+            mas aquela passada no Model é com P maiúsculo, é por isso que uso ${Produtos} no each-->
+                <td th:text="${produto.id}"></td>
+                <td th:text="${produto.nome}"></td>
+                <td th:text="${produto.tipo}"></td>
+                <td th:text="${produto.categoria}"></td>
+                <td th:text="${produto.marca}"></td>
+                <td th:text="${produto.udMedida}"></td>
+                <td th:text="${produto.quantidadeConteudo}"></td>
+                <!--  <td th:text="${produto.preco}"></td>
+                <td th:text="${produto.moeda}"></td>
+                <td th:text="${produto.dataPreco}"></td>
+                <td th:text="${produto.dataValidade}"></td> -->
+                <td th:text="${produto.status}"></td>
+
+            </tr>
+        </tbody>
+    </table>
+
+    <!--Se não vierem resultados da busca-->
+    <div th:if="${Mensagem}" class="alert alert-warning">
+        <span th:text="${Mensagem}"></span>
+    </div>
+    
+</body>
+</html>

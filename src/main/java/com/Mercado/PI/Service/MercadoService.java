@@ -31,7 +31,17 @@ public class MercadoService {
     }
     
     public MercadoEntity salvar(MercadoEntity mercado){
-        return mercadoRepository.save(mercado);
+
+        //Primeiro vou conferir se já existe o mercado usando o bairro, cidade e cep antes de cadastrar um novo
+        Optional <MercadoEntity> existeMercado = mercadoRepository.findByBairroIgnoreCaseAndCepIgnoreCaseAndCidadeIgnoreCase(
+                                                                    mercado.getBairro(), mercado.getCep(),mercado.getCidade());
+        
+        if(!existeMercado.isEmpty()){
+            throw new RuntimeException("Existe já um mercado nesse bairro com o mesmo cep e na mesma cidade");
+        } else {
+            return mercadoRepository.save(mercado);
+        }
+        
     }
 
     public void excluir(int id){
