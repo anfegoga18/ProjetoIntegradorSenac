@@ -40,7 +40,7 @@ public class MercadoEntity {
     private String cidade;
     private String telefone;
     private String site;
-    private String tele_entrega;
+    private String teleEntrega;
     private String uf;
 
     @ManyToOne //Muitos mercados em diferentes endereços pertencem a uma red de mercados

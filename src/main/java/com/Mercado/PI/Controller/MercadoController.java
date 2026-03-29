@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.Mercado.PI.DTO.MercadoFormularioDTO;
 import com.Mercado.PI.Data.MercadoEntity;
 import com.Mercado.PI.Data.RedEntity;
 import com.Mercado.PI.Service.MercadoService;
@@ -37,11 +38,11 @@ public class MercadoController {
     @GetMapping("/cadastroMercados")
     public String formularioMercado(Model model){
         
-        MercadoEntity mercado = new MercadoEntity();//Cria uma instância do mercado para adicionar ao modelo do formulário
+        MercadoFormularioDTO mercadoForm = new MercadoFormularioDTO();//Cria uma instância do MercadoFormularioDTO para adicionar ao modelo do formulário
         
-        mercado.setRedMercado(new RedEntity()); //Inicializa com uma RedEntity nova para não quebrar no formulário por chegar como null
+        //mercado.setRedMercado(new RedEntity()); //Inicializa com uma RedEntity nova para não quebrar no formulário por chegar como null
 
-        model.addAttribute("Mercado", mercado);//MUITO IMPORTANTE, essa chave "Mercado" é a que deve coincidir com quem é chamado no HTML
+        model.addAttribute("MercadoForm", mercadoForm);//MUITO IMPORTANTE, essa chave "Mercado" é a que deve coincidir com quem é chamado no HTML
         model.addAttribute("Redes", redService.listarRedesMercados()); //Cá está procurando todas as redes de mercado cadastradas e as chamando de "Redes"
 
         return "cadastroMercado";
@@ -49,9 +50,10 @@ public class MercadoController {
     
     /* Esta parte envia os dados inseridos pelo usuário para o cadastro do mercado */
     @PostMapping("/cadastroMercados")
-    public String processarFormMercado(@ModelAttribute MercadoEntity mercado, Model model){//O @ModelAttribute significa que o que vai ser passado no Model é um objeto MercadoEntity chamado mercado
+    public String processarFormMercado(@ModelAttribute MercadoFormularioDTO mercadoForm, Model model){//O @ModelAttribute significa que o que vai ser passado no Model é um objeto MercadoEntity chamado mercado
         
         //Verificando se a red de mercados existe antes de adicioná-la no banco de dados
+        /* 
         int redId = mercado.getRedMercado().getId();
         //RedEntity red = redService.buscarRedPorId(redId).orElseThrow(() -> new RuntimeException("Red não existe"));
         RedEntity red = redService.buscarRedPorId(redId).orElse(null);
@@ -63,7 +65,9 @@ public class MercadoController {
         } else {
             System.out.println("Não foi encontrada a red de mercados");
             return "cadastroMercado";
-        }
+        } */
+
+       mercadoService.salvar(mercadoForm);
 
     return"cadastroMercadoSucesso";
     }

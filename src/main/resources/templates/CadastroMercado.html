@@ -20,57 +20,57 @@ chave : valor , pois não tem a ver como está instanciado o objeto e sim a nome
 
     <div class="formMercados">
 
-        <form th:action="@{/mercados/cadastroMercados}" method="POST" th:object="${MercadoEntity}"><!--O th:object nos diz o tipo de objeto que está sendo passado no POST-->
+        <form th:action="@{/mercados/cadastroMercados}" method="POST" th:object="${MercadoFormularioDTO}"><!--O th:object nos diz o tipo de objeto que está sendo passado no POST-->
             <div class="cadastro-mercado">
                 <p>
                     <label for="id">Id: </label>
-                    <input type="hidden" th:field="${Mercado.id}" /><!--Fica como hidden para evitar inserir um id que já é gerenciado pelo banco de dados, mas necessário quando há atualização num registro-->
+                    <input type="hidden" th:field="${MercadoForm.MercadoId}" /><!--Fica como hidden para evitar inserir um id que já é gerenciado pelo banco de dados, mas necessário quando há atualização num registro-->
                 </p>
                 
                 <p>
                     <label for="bairro">Bairro: </label> 
-                    <input type="text" th:field="${Mercado.bairro}" required/>
+                    <input type="text" th:field="${MercadoForm.bairro}" required/>
                 </p>
                 
                 <p>
                     <label for="endereco">Endereço: </label> 
-                    <input type="text" th:field="${Mercado.endereco}" required/>
+                    <input type="text" th:field="${MercadoForm.endereco}" required/>
                 </p>
                 
                 
                 <p>
                     <label for="numero">Número: </label> 
-                    <input type="text" th:field="${Mercado.numero}" required/>
+                    <input type="text" th:field="${MercadoForm.numero}" required/>
                 </p>
                 
                 <p>
                     <label for="cep">CEP: </label> 
-                    <input type="text" th:field="${Mercado.cep}" required/>
+                    <input type="text" th:field="${MercadoForm.cep}" required/>
                 </p>
                 
                 <p>
                     <label for="cidade">Cidade: </label> 
-                    <input type="text" th:field="${Mercado.cidade}" required/>
+                    <input type="text" th:field="${MercadoForm.cidade}" required/>
                 </p>
                 
                 <p>
                     <label for="telefone">Telefone: </label> 
-                    <input type="text" th:field="${Mercado.telefone}" required/>
+                    <input type="text" th:field="${MercadoForm.telefone}" required/>
                 </p>
                 
                 <p>
                     <label for="site">Página web: </label> 
-                    <input type="text" th:field="${Mercado.site}" required/>
+                    <input type="text" th:field="${MercadoForm.site}" required/>
                 </p>
                 
                 <p>
-                    <label for="tele_entrega">Tele-entrega?: </label> 
-                    <input type="text" th:field="${Mercado.tele_entrega}" required/>
+                    <label for="teleEntrega">Tele-entrega?: </label> 
+                    <input type="text" th:field="${MercadoForm.teleEntrega}" required/>
                 </p>
                 
                 <p>
                     <label for="uf">UF/Estado/Dpto:  </label> 
-                    <input type="text" th:field="${Mercado.uf}" required/>
+                    <input type="text" th:field="${MercadoForm.uf}" required/>
                 </p>
 
                 <h3>Seleção da Red de Mercados</h3>
@@ -78,10 +78,10 @@ chave : valor , pois não tem a ver como está instanciado o objeto e sim a nome
                 <p>
                     <label for="red"> Selecione uma red de mercados </label> 
                     <!-- Caixa de seleção da red de mercados -->
-                     <select name="red" id="red" th:field="${Mercado.redMercado.id}" required> <!--Colocando o th:field="${Mercado.redMercado.id}" faz com que Spring execute: Mercado.getRedMercado().getId()-->
-                            <option value="0">-- Selecione--</option>
+                     <select name="red" id="red" required> <!---->
+                            <option value="">-- Selecione--</option>
                             <option th:each="red : ${Redes}"
-                                    th:value = "${red.id}" 
+                                    th:value = "${red.redId}" 
                                     th:text = "${red.nomeRed}"> <!-- Atenção: Pega o id com o value e passa o nome da red do mercado com text -->
                             </option>
 

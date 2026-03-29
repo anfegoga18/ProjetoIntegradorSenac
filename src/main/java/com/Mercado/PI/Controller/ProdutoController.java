@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.Mercado.PI.DTO.ProdutoFormularioDTO;
-import com.Mercado.PI.Data.ProdutoEntity;
 import com.Mercado.PI.Service.ProdutoService;
 
 
@@ -44,7 +43,7 @@ public class ProdutoController {
     public String processarFormProduto(@ModelAttribute ProdutoFormularioDTO produtoForm, Model model){//O @ModelAttribute significa que o que vai ser passado no Model é um objeto ProdutoFormularioDTO chamado ProdutoFom
         
         produtoService.salvar(produtoForm); //Persistindo o produto no BD
-        model.addAttribute("ProdutoForm", produtoForm);//Adicionando o ProdutoForm ao modelo para posterior exibição na vista de CadastroProduto
+        //model.addAttribute("ProdutoForm", produtoForm);//Adicionando o ProdutoForm ao modelo para posterior exibição na vista de CadastroProduto
         
     return"cadastroProdutoSucesso";
     }
