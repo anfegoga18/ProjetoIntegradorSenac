@@ -21,54 +21,61 @@ chave : valor pois não tem a ver como está instanciado o objeto e sim a nome n
             <div class="cadastro-mercado">
                 <p>
                     <label for="id">Id: </label>
-                    <span type="text" th:field="${Mercado.id}" /></span>
+                    <span type="text" th:text="${mercadoForm.mercadoId}" /></span>
                 </p>
                 
                 <p>
                     <label for="bairro">Nome: </label> 
-                    <span type="text" th:field="${Mercado.bairro}" /></span>
+                    <span type="text" th:text="${mercadoForm.bairro}" /></span>
                 </p>
                 
                 <p>
                     <label for="endereco">Endereço: </label> 
-                    <span type="text" th:field="${Mercado.endereco}" /></span>
+                    <span type="text" th:text="${mercadoForm.endereco}" /></span>
                 </p>
                 
                 
                 <p>
                     <label for="numero">Número: </label> 
-                    <span type="text" th:field="${Mercado.numero}" /></span>
+                    <span type="text" th:text="${mercadoForm.numero}" /></span>
                 </p>
                 
                 <p>
                     <label for="cep">CEP: </label> 
-                    <span type="text" th:field="${Mercado.cep}" /></span>
+                    <span type="text" th:text="${mercadoForm.cep}" /></span>
                 </p>
                 
                 <p>
                     <label for="cidade">Cidade: </label> 
-                    <span type="text" th:field="${Mercado.cidade}" /></span>
+                    <span type="text" th:text="${mercadoForm.cidade}" /></span>
                 </p>
                 
                 <p>
                     <label for="telefone">Telefone: </label> 
-                    <span type="text" th:field="${Mercado.telefone}" /></span>
+                    <span type="text" th:text="${mercadoForm.telefone}" /></span>
                 </p>
                 
                 <p>
                     <label for="site">Página web: </label> 
-                    <span type="text" th:field="${Mercado.site}" /></span>
+                    <span type="text" th:text="${mercadoForm.site}" /></span>
                 </p>
                 
                 <p>
                     <label for="teleEntrega">Tele-entrega?: </label> 
-                    <span type="text" th:field="${Mercado.teleEntrega}" /></span>
+                    <span type="text" th:text="${mercadoForm.teleEntrega}" /></span>
                 </p>
                 
                 <p>
                     <label for="uf">UF/Estado/Dpto:  </label> 
-                    <span type="text" th:field="${Mercado.uf}" /></span>
+                    <span type="text" th:text="${mercadoForm.uf}" /></span>
                 </p>
+
+                <p>
+                    <label for="red">Red de supermercado:  </label> 
+                    <span type="text" th:text="${mercadoForm.nomeRed}" /></span>
+                </p>
+
+
             </div>    
 
     </div>

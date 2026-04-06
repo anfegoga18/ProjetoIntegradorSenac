@@ -16,7 +16,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  *
@@ -24,7 +27,10 @@ import lombok.NoArgsConstructor;
  */
 
 @Entity
-@Data //Para não precisar escrever os getters e setters
+//@Data //Para não precisar escrever os getters e setters
+@Getter
+@Setter
+@ToString(exclude = {"redMercado", "produtosMercados"})  //Devi adicionar porque estava entrando em loop com RedMercadoEntity
 @NoArgsConstructor //Para construtor sem argumentos
 @AllArgsConstructor //Para construtor com todos os argumentos
 @Table(name = "mercado")
@@ -32,7 +38,7 @@ public class MercadoEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String bairro;
     private String endereco;
     private String numero;
@@ -51,5 +57,12 @@ public class MercadoEntity {
     @OneToMany(mappedBy = "mercado", cascade = CascadeType.ALL) //Está declarada como "mercado" na entidade ProdutoMercadoEntity
     @JsonManagedReference
     private List<ProdutoMercadoEntity> produtosMercados;
+
+
+
+    //Método para retornar a red do mercado e o nome do bairro gerenciando o null da Red
+    public String mostrarMercadoRed(){
+        return (redMercado != null ? redMercado.getNomeRed() : "Sem Red") + " - " +  bairro;
+    }
 
 }

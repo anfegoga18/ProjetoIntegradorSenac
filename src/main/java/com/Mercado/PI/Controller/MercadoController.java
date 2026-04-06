@@ -42,7 +42,7 @@ public class MercadoController {
         
         //mercado.setRedMercado(new RedEntity()); //Inicializa com uma RedEntity nova para não quebrar no formulário por chegar como null
 
-        model.addAttribute("MercadoForm", mercadoForm);//MUITO IMPORTANTE, essa chave "Mercado" é a que deve coincidir com quem é chamado no HTML
+        model.addAttribute("MercadoForm", mercadoForm);//MUITO IMPORTANTE, essa chave "MercadoForm" é a que deve coincidir com quem é chamado no HTML
         model.addAttribute("Redes", redService.listarRedesMercados()); //Cá está procurando todas as redes de mercado cadastradas e as chamando de "Redes"
 
         return "cadastroMercado";
@@ -50,24 +50,19 @@ public class MercadoController {
     
     /* Esta parte envia os dados inseridos pelo usuário para o cadastro do mercado */
     @PostMapping("/cadastroMercados")
-    public String processarFormMercado(@ModelAttribute MercadoFormularioDTO mercadoForm, Model model){//O @ModelAttribute significa que o que vai ser passado no Model é um objeto MercadoEntity chamado mercado
+    public String processarFormMercado(@ModelAttribute MercadoFormularioDTO mercadoForm, Model model){//O @ModelAttribute significa que o que vai ser passado no Model é um objeto MercadoFormularioDTO chamado mercadoForm
+
+        //Salvando o mercado no BD
+        MercadoEntity mercadoSalvo = mercadoService.salvar(mercadoForm);
         
-        //Verificando se a red de mercados existe antes de adicioná-la no banco de dados
-        /* 
-        int redId = mercado.getRedMercado().getId();
-        //RedEntity red = redService.buscarRedPorId(redId).orElseThrow(() -> new RuntimeException("Red não existe"));
-        RedEntity red = redService.buscarRedPorId(redId).orElse(null);
-    
+        //Como estou trabalhando com DTO e até salvar não é gerado id no mercado, devo asignar o id no DTO
+        mercadoForm.setMercadoId(mercadoSalvo.getId());
 
-        if(red != null){
-            mercado.setRedMercado(red);
-            mercadoService.salvar(mercado); //Persistindo o mercado no BD
-        } else {
-            System.out.println("Não foi encontrada a red de mercados");
-            return "cadastroMercado";
-        } */
-
-       mercadoService.salvar(mercadoForm);
+        //É necessário também passar o nome da red de supermercado, pois estou só trabalhando com o id dela
+        mercadoForm.setNomeRed(mercadoSalvo.getRedMercado().getNomeRed());
+        
+        //Passando o objeto no model para a view
+        model.addAttribute("mercadoForm", mercadoForm);
 
     return"cadastroMercadoSucesso";
     }
@@ -94,6 +89,6 @@ public class MercadoController {
         model.addAttribute("Red", red);//Adicionando a red do mercado ao modelo para posterior exibição na vista
         model.addAttribute("Mercado", new MercadoEntity()); //Cria uma nova entidade de mercado para a exibição do formulário de cadastro de mercado
         
-    return"redirect:/cadastroMercado";
+    return"redirect:/mercados/cadastroMercados";
     }
 }

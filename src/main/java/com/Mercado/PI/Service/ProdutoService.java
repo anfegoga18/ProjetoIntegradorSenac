@@ -47,11 +47,11 @@ public class ProdutoService {
         return produtoRepository.findByNomeContainingIgnoreCase(nome);
     }
 
-    public Optional<ProdutoEntity> buscarProdutoPorId(int id){ //O Optional é caso não ache o Produto já faz o gerenciamento
+    public Optional<ProdutoEntity> buscarProdutoPorId(Integer id){ //O Optional é caso não ache o Produto já faz o gerenciamento
         return produtoRepository.findById(id);
     }
     
-    public ProdutoMercadoEntity salvar(ProdutoFormularioDTO produtoForm){
+    public ProdutoFormularioDTO salvar(ProdutoFormularioDTO produtoForm){
 
         //Para o Produto, busca primeiro se o produto exite no banco de dados para reutilizar, se não for achado vai criar um novo produto no banco
         ProdutoEntity produto = produtoRepository.findByNomeIgnoreCaseAndTipoIgnoreCaseAndCategoriaIgnoreCaseAndMarcaIgnoreCaseAndUdMedidaIgnoreCaseAndQuantidadeConteudoAndStatus(
@@ -79,27 +79,46 @@ public class ProdutoService {
 
                                                                 });
 
-        produtoRepository.save(produto); //Salvando o produto
+        //System.out.println("****************** El mercado nuevo es: "  + produto);
+        produtoRepository.save(produto); //Salvando o produto no BD
 
         //Para a o Mercado
 
         MercadoEntity mercado = mercadoRepository.findById(produtoForm.getMercadoId()).orElseThrow();
+            //Atualizando o DTO para enviar na view a parte do mercado
+            produtoForm.setBairro(mercado.getBairro());
+            produtoForm.setRedMercado(mercado.getRedMercado().getNomeRed());
+
 
         //Para o ProdutoMercado
         
-        ProdutoMercadoEntity produtoMercado = new ProdutoMercadoEntity();
-        produtoMercado.setProduto(produto);
-        produtoMercado.setMercado(mercado);
+        ProdutoMercadoEntity produtoMercado = produtoMercadoRepository.findByProdutoAndMercadoAndDataPreco(produto, mercado, produtoForm.getDataPreco())
+                                                                        .orElseGet( 
+                                                                            
+                                                                            () -> {
+
+                                                                            ProdutoMercadoEntity novoProdutoMercado = new ProdutoMercadoEntity();
+                                                                            novoProdutoMercado.setProduto(produto);
+                                                                            novoProdutoMercado.setMercado(mercado);
+                                                                            // Crio o novoProtudoMercado sem o preço e os outros atributos para que possa modificar ou atulizar depois, pode acontecer de não ter de criar uma nova relação e apenas fazer uma atualização
+                                                                            return novoProdutoMercado; //Deve existir um return para não ter erro, se existe { } deve existir um return
+ 
+                                                                        });
+
         produtoMercado.setPreco(produtoForm.getPreco());
         produtoMercado.setMoeda(produtoForm.getMoeda());
         produtoMercado.setDataPreco(produtoForm.getDataPreco());
         produtoMercado.setDataValidade(produtoForm.getDataValidade());
 
-        return produtoMercadoRepository.save(produtoMercado);
+        produtoMercado = produtoMercadoRepository.save(produtoMercado); //Salvando os dados na tabela intermediária
+        //System.out.println("*************** El mercado nuevo es: "  + produtoMercado);
+        
+        
+        return produtoForm;
 
     }
 
-    public void excluir(int id){ //Deve ser testado se não vai apagar o mercado na hora de excluir o produto
+    public void excluir(Integer id){ //Deve ser testado se não vai apagar o mercado na hora de excluir o produto
         produtoRepository.deleteById(id);
     }
 

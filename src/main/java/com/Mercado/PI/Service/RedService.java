@@ -27,7 +27,7 @@ public class RedService {
         return redRepository.findAll();
     }
 
-    public Optional <RedEntity> buscarRedPorId(int id){
+    public Optional <RedEntity> buscarRedPorId(Integer id){
         return redRepository.findById(id);
     }
     
@@ -48,7 +48,7 @@ public class RedService {
         
     }
 
-    public void excluir(int id){
+    public void excluir(Integer id){
         redRepository.deleteById(id);
     }
 }

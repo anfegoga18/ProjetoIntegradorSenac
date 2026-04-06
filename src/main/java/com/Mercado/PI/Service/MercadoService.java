@@ -32,7 +32,7 @@ public class MercadoService {
         return mercadoRepository.findAll();
     }
     
-    public Optional<MercadoEntity> buscarMercadoPorId(int id){ //O Optional é caso não ache o Mercado já faz o gerenciamento
+    public Optional<MercadoEntity> buscarMercadoPorId(Integer id){ //O Optional é caso não ache o Mercado já faz o gerenciamento
         return mercadoRepository.findById(id);
     }
     
@@ -62,7 +62,7 @@ public class MercadoService {
 
                                                                     });
 
-        
+        //System.out.println("El mercado nuevo es: "  + mercado);
         /*                                                             
         if(!mercado.isEmpty()){
             throw new RuntimeException("Existe já um mercado nesse bairro com o mesmo cep e na mesma cidade");
@@ -71,15 +71,18 @@ public class MercadoService {
         } */
 
         //Para a red do mercado
-        int red = mercadoForm.getMercadoId(); //Obtendo o id do mercado no mercadoForm
+        Integer red = mercadoForm.getRedId(); //Obtendo o id da red do mercado no mercadoForm
+        //System.out.println("La rede del mercado es: "+ red);
         RedEntity redMercado = redRepository.findById(red).orElseThrow(); // Procurando pela red do mercado no BD
-        
+        //System.out.println("La redMercadoEntity es: "+ redMercado);
+
         mercado.setRedMercado(redMercado); // Salvando a red do mercado no objeto mercado inicial
+        //System.out.println(mercado);
 
         return mercadoRepository.save(mercado);
     }
 
-    public void excluir(int id){
+    public void excluir(Integer id){
         mercadoRepository.deleteById(id);
     }
 }

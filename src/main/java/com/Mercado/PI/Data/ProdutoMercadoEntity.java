@@ -12,11 +12,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data //Para não precisar escrever os getters e setters
+//@Data //Para não precisar escrever os getters e setters
+@Getter
+@Setter
 @NoArgsConstructor //Para construtor sem argumentos
 @AllArgsConstructor //Para construtor com todos os argumentos
 @Table(name = "produto_mercado")
@@ -24,7 +27,7 @@ public class ProdutoMercadoEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     
     @ManyToOne
     @JoinColumn(name ="produto_id")

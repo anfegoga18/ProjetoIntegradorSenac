@@ -21,63 +21,66 @@ chave : valor pois não tem a ver como está instanciado o objeto e sim a nome n
             <div class="cadastro-produto">
                 <p>
                     <label for="id">Id: </label>
-                    <span type="text" th:text="${Produto.id}" /></span> <!-- Muito cuidado: para mostrar dados deve ser usado th:text ao invés de th: field que só faz sentido se estiver sendo inserido um dado num formulário -->
+                    <span type="text" th:text="${ProdutoForm.produtoId}" /></span> <!-- Muito cuidado: para mostrar dados deve ser usado th:text ao invés de th: field que só faz sentido se estiver sendo inserido um dado num formulário -->
                 </p>
                 
                 <p>
                     <label for="nome">Produto: </label> 
-                    <span type="text" th:text="${Produto.nome}" /></span>
+                    <span type="text" th:text="${ProdutoForm.nome}" /></span>
                 </p>
                 
                 <p>
                     <label for="tipo">Tipo: </label> 
-                    <span type="text" th:text="${Produto.tipo}" /></span>
+                    <span type="text" th:text="${ProdutoForm.tipo}" /></span>
                 </p>
                 
                 <p>
                     <label for="categoria">Categoria: </label> 
-                    <span type="text" th:text="${Produto.categoria}" /></span>
+                    <span type="text" th:text="${ProdutoForm.categoria}" /></span>
                 </p>
                 
                 <p>
                     <label for="marca">Marca: </label> 
-                    <span type="text" th:text="${Produto.marca}" /></span>
+                    <span type="text" th:text="${ProdutoForm.marca}" /></span>
                 </p>
                 
                 <p>
                     <label for="udMedida">Unidade de medida: </label> 
-                    <span type="text" th:text="${Produto.udMedida}" /></span>
+                    <span type="text" th:text="${ProdutoForm.udMedida}" /></span>
                 </p>
                 
                 <p>
                     <label for="quantidade_conteudo">Qtd de produto: </label> 
-                    <span type="number" step="0.01"  th:text="${Produto.quantidadeConteudo}" /></span>
-                </p>
-                <!--  
-                <p>
-                    <label for="preco">Preço: </label> 
-                    <span type="number" step="0.01"  th:text="${Produto.preco}" /></span>
+                    <span type="number" step="0.01"  th:text="${ProdutoForm.quantidadeConteudo}" /></span>
                 </p>
                 
                 <p>
-                    <label for="moeda">Moeda: </label> 
-                    <span type="text" th:text="${Produto.moeda}" /></span>
+                    <label for="status">Status do produto: </label> 
+                    <span type="checkbox" th:text="${ProdutoForm.status}" /></span>
+                </p>
+
+                <p>
+                    <label for="preco">Preço: </label> 
+                    <span type="number" step="0.01"  th:text="${ProdutoForm.preco}" /></span> <!-- Preço -->
+                    <span type="text" th:text="${ProdutoForm.moeda}" /></span> <!-- Moeda -->
                 </p>
                 
                 <p>
                     <label for="dataPreco">Data do preço: </label> 
-                    <span type="date" th:text="${Produto.dataPreco}" /></span>
+                    <span type="date" th:text="${ProdutoForm.dataPreco}" /></span>
                 </p>
                 
                 <p>
                     <label for="dataValidade">Data de validade: </label> 
-                    <span type="date" th:text="${Produto.dataValidade}" /></span>
+                    <span type="date" th:text="${ProdutoForm.dataValidade}" /></span>
                 </p>
-                -->
+                
+
                 <p>
-                    <label for="status">Status do produto: </label> 
-                    <span type="checkbox" th:text="${Produto.status}" /></span>
+                    <label for="mercado">Mercado: </label> 
+                    <span type="text" th:text="${ProdutoForm.redMercado + ' - ' +  ProdutoForm.bairro}" /></span>
                 </p>
+
             </div>    
 
     </div>

@@ -27,7 +27,7 @@ chave : valor , pois não tem a ver como está instanciado o objeto e sim a nome
 
                 <p>
                     <label for="id">Id: </label>
-                    <input type="hidden" th:field="${ProdutoForm.PordutoId}" /><!--Fica como hidden para evitar inserir um id que já é gerenciado pelo banco de dados, mas necessário quando há atualização num registro-->
+                    <input type="hidden" th:field="${ProdutoForm.produtoId}" /><!--Fica como hidden para evitar inserir um id que já é gerenciado pelo banco de dados, mas necessário quando há atualização num registro-->
                 </p>
                 
                 <p>
@@ -72,14 +72,19 @@ chave : valor , pois não tem a ver como está instanciado o objeto e sim a nome
                 <p>
                     <label for="mercado"> Selecione um mercado </label> 
                     <!-- Caixa de seleção do mercado -->
-                     <select name="mercado" id="mercado" required>
+                     <select name="mercadoId" id="mercado" required> <!-- Muito importante: o name no html deve coincidir com o atributo no DTO -->
                             <option value="">-- Selecione--</option>
-                            <option th:each="mercado : ${ProdutoForm}"
-                                    th:value = "mercado.MercadoId" 
-                                    th:text = "mercado.bairro"> <!-- Atenção: Pega o id com o value e passa o nome do bairro com text -->
+                            <!-- Cá no value utilizo id ao invés de mercadoId, pois mercado é um MercadoEntity, já o name do select tem mercadoId que é como está no DTO -->
+                            <option th:each="mercado : ${Mercados}"
+                                    th:value = "${mercado.id}"  
+                                    th:text ="${mercado.mostrarMercadoRed}"> <!-- Atenção: Cá executo o método de MercadoEntity para enviar o nome correto -->
                             </option>
 
                      </select>
+
+                     <!-- Link de redirecionamento caso seja necessário cadastrar um mercado por não estar na lista -->
+                     <a th:href="@{/mercados/cadastroMercados}">Cadastro de Mercados</a>
+
                 </p>
 
                 

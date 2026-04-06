@@ -12,11 +12,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Data //Para não precisar escrever os getters e setters
+//@Data //Para não precisar escrever os getters e setters
+@Getter
+@Setter
+@ToString(exclude = {"mercados"}) //Devi adicionar porque estava entrando em loop com MercadoEntity
 @NoArgsConstructor //Para construtor sem argumentos
 @AllArgsConstructor //Para construtor com todos os argumentos
 @Table(name = "red")
@@ -24,7 +29,7 @@ public class RedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String nomeRed;
 

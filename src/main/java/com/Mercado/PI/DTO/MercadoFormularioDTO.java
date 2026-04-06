@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class MercadoFormularioDTO {
 
     /*Atributos do mercado */
-    private int MercadoId;
+    private Integer mercadoId;
     private String bairro;
     private String endereco;
     private String numero;
@@ -22,7 +22,7 @@ public class MercadoFormularioDTO {
     private String uf;
 
     /*Atributos da Red do Mercado */
-    private int redId;
+    private Integer redId;
     private String nomeRed;
     
 }

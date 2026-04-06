@@ -78,10 +78,10 @@ chave : valor , pois não tem a ver como está instanciado o objeto e sim a nome
                 <p>
                     <label for="red"> Selecione uma red de mercados </label> 
                     <!-- Caixa de seleção da red de mercados -->
-                     <select name="red" id="red" required> <!---->
+                     <select name="redId" id="red" required> <!-- Muito importante: o name no html deve coincidir com o atributo no DTO -->
                             <option value="">-- Selecione--</option>
                             <option th:each="red : ${Redes}"
-                                    th:value = "${red.redId}" 
+                                    th:value = "${red.id}" 
                                     th:text = "${red.nomeRed}"> <!-- Atenção: Pega o id com o value e passa o nome da red do mercado com text -->
                             </option>
 

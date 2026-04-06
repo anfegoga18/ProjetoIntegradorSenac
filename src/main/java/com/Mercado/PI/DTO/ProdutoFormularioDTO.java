@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class ProdutoFormularioDTO {
 
     /*Atributos do produto */
-    private int PordutoId;
+    private Integer produtoId;
     private String nome;
     private String tipo;
     private String categoria;
@@ -22,8 +22,9 @@ public class ProdutoFormularioDTO {
     private boolean status;
 
     /*Atributos do Mercado */
-    private int MercadoId;
+    private Integer mercadoId;
     private String bairro;
+    private String redMercado;
 
     /*Atributos do ProdutoMercado (Tabela Intermediária) */
     private Double preco;

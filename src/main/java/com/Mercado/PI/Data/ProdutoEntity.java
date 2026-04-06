@@ -12,8 +12,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  *
@@ -22,7 +23,9 @@ import lombok.NoArgsConstructor;
 
 
 @Entity
-@Data //Para não precisar escrever os getters e setters
+//@Data //Para não precisar escrever os getters e setters
+@Getter
+@Setter
 @NoArgsConstructor //Para construtor sem argumentos
 @AllArgsConstructor //Para construtor com todos os argumentos
 @Table(name = "produto")
@@ -30,7 +33,7 @@ public class ProdutoEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String nome;
     private String tipo;
     private String categoria;

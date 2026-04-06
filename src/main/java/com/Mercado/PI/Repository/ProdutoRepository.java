@@ -22,5 +22,4 @@ public interface ProdutoRepository extends JpaRepository<ProdutoEntity, Integer>
 
     Optional<ProdutoEntity> findByNomeIgnoreCaseAndTipoIgnoreCaseAndCategoriaIgnoreCaseAndMarcaIgnoreCaseAndUdMedidaIgnoreCaseAndQuantidadeConteudoAndStatus(String nome, String tipo, String categoria, String marca, String udMedida, double quantidadeConteudo, boolean status);
 
-
 }

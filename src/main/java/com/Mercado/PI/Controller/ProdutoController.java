@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.Mercado.PI.DTO.ProdutoFormularioDTO;
+import com.Mercado.PI.Service.MercadoService;
 import com.Mercado.PI.Service.ProdutoService;
 
 
@@ -27,6 +28,9 @@ public class ProdutoController {
     
     @Autowired
     private ProdutoService produtoService;
+
+    @Autowired
+    private MercadoService mercadoService;
     
     /* Esta parte apresenta a tela para fazer o cadastro de um produto*/
     @GetMapping("/cadastroProdutos")
@@ -34,7 +38,7 @@ public class ProdutoController {
         
         ProdutoFormularioDTO produtoForm = new ProdutoFormularioDTO();//Cria uma instância do produtoForm para adicionar ao modelo do formulário
         model.addAttribute("ProdutoForm", produtoForm);//MUITO IMPORTANTE, essa chave "ProdutoForm" é a que deve coincidir com quem é chamado no HTML
-        
+        model.addAttribute("Mercados", mercadoService.listarMercados()); //Adicionando a lista de mercados cadastrados
         return "cadastroProduto";
     }
 
@@ -42,8 +46,9 @@ public class ProdutoController {
     @PostMapping("/cadastroProdutos")
     public String processarFormProduto(@ModelAttribute ProdutoFormularioDTO produtoForm, Model model){//O @ModelAttribute significa que o que vai ser passado no Model é um objeto ProdutoFormularioDTO chamado ProdutoFom
         
-        produtoService.salvar(produtoForm); //Persistindo o produto no BD
-        //model.addAttribute("ProdutoForm", produtoForm);//Adicionando o ProdutoForm ao modelo para posterior exibição na vista de CadastroProduto
+        
+        produtoForm = produtoService.salvar(produtoForm); //Persistindo o produto no BD, salvando a relacação na tabela intermadiária e retornando o DTO atualizado com os dados do mercado desde o service
+        model.addAttribute("ProdutoForm", produtoForm);//Adicionando o ProdutoForm ATUALIZADO! ao modelo para posterior exibição na vista de CadastroProdutoSucesso
         
     return"cadastroProdutoSucesso";
     }
