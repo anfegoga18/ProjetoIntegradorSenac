@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.Mercado.PI.DTO.ProdutoRespostaDTO;
 import com.Mercado.PI.Data.ProdutoEntity;
 import com.Mercado.PI.Service.ProdutoService;
 
@@ -39,7 +40,7 @@ public class PesquisaController {
     @PostMapping("/")
     public String mostrarProdutoPesquisado (@RequestParam String nome , Model model){
         
-        List<ProdutoEntity> produtos = produtoService.buscarProdutoContendoNome(nome);
+        List<ProdutoRespostaDTO> produtos = produtoService.buscarProdutoContendoNome(nome);
 
         if(produtos.isEmpty()){
             model.addAttribute("Mensagem", "Nenhum produto achado para: " + nome);

@@ -21,31 +21,40 @@ No fragmento está a parte :: nav, aquilo quer dizer que o nome do fragmento vai
                 <th>Marca</th>
                 <th>Ud Medida</th>
                 <th>Qde Conteudo</th>
-                <!--  <th>Preço</th> -->
-                <th>Moeda</th>
-                <!--  <th>Data Preço</th>
-                  <th>Data Validade</th> -->
+                <!-- Info de preços -->
+                <th>Preço</th>
+                <th>Data Preço</th>
+                <th>Data Validade</th>
+                <!-- Info de mercado -->
+                <th>Mercado</th>
+                <!-- Status -->
                 <th>Status</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="produto : ${Produtos}">
+            <th:block th:each="produto : ${Produtos}"> <!-- Utiliza-se o block para poder iterar 2 vezes e não romper a tabela -->
+
             <!--Atenção com o nome da lista de produtos no controlador, a lista é com p minusculo
-            mas aquela passada no Model é com P maiúsculo, é por isso que uso ${Produtos} no each-->
-                <td th:text="${produto.id}"></td>
-                <td th:text="${produto.nome}"></td>
+            mas aquela passada no Model é com P maiúsculo, é por isso que uso ${Produtos} no 1ro each
+            No 2do each é usado produto.precosMercados que é a lista de PrecoComMercadoDTO-->
+
+                <tr th:each="preco : ${produto.precosMercados}" >
+                <td th:text="${produto.produtoId}"></td>
+                <td th:text="${produto.nomeProduto}"></td>
                 <td th:text="${produto.tipo}"></td>
                 <td th:text="${produto.categoria}"></td>
                 <td th:text="${produto.marca}"></td>
                 <td th:text="${produto.udMedida}"></td>
                 <td th:text="${produto.quantidadeConteudo}"></td>
-                <!--  <td th:text="${produto.preco}"></td>
-                <td th:text="${produto.moeda}"></td>
-                <td th:text="${produto.dataPreco}"></td>
-                <td th:text="${produto.dataValidade}"></td> -->
+                <td th:text="${preco.preco} - ${preco.moeda}"></td>
+                <td th:text="${preco.dataPreco}"></td>
+                <td th:text="${preco.dataValidade}"></td>
+                <td th:text="${preco.bairro + ' - ' + preco.redMercado}"></td>
                 <td th:text="${produto.status}"></td>
 
             </tr>
+
+            </th:block>
         </tbody>
     </table>
 
