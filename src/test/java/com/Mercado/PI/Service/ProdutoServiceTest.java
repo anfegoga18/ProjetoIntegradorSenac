@@ -1,6 +1,7 @@
 package com.Mercado.PI.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,6 +18,7 @@ import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.Mercado.PI.DTO.ProdutoFormularioDTO;
+import com.Mercado.PI.DTO.ProdutoRespostaDTO;
 import com.Mercado.PI.Data.MercadoEntity;
 import com.Mercado.PI.Data.ProdutoEntity;
 import com.Mercado.PI.Data.ProdutoMercadoEntity;
@@ -104,6 +106,59 @@ public class ProdutoServiceTest {
         assertEquals(4.85, produtoNovo.getPreco());
         assertEquals(LocalDate.now(), produtoNovo.getDataPreco());
 
+    }
+
+    @Test
+    public void testBuscarProduto(){
+
+        //ARRANGE
+            ProdutoEntity produtoTeste = new ProdutoEntity(); //Criamos o produto que vai ser buscado
+            produtoTeste.setId(20);
+            produtoTeste.setNome("Leite Integral"); //Coloco um nome composto para testar se é encontrado com parte do nome   
+        
+
+
+            //Criamos as relações para a tabela intermediária que é onde são feitas as buscar para 1 produto e dois mercados com preços diferentes
+            ProdutoMercadoEntity produtoResposta1 = new ProdutoMercadoEntity(); //Utilizo o construtor vazio que é o que está definido na classe
+            produtoResposta1.setProduto(produtoTeste); // IMPORTANTE: É O MESMO PRODUTO PARA AS DUAS RELAÇÕES
+            produtoResposta1.setMercado(new MercadoEntity()); //Asignamos um mercado novo para o teste e a relação produtoMercado
+            produtoResposta1.getMercado().setBairro("Cidade Baixa");
+            produtoResposta1.getMercado().setRedMercado(new RedEntity());
+            produtoResposta1.getMercado().getRedMercado().setNomeRed("Zaffari"); // Assignamos o nome da red de mercados tendo já criado a nova red na línea anterior
+            produtoResposta1.setPreco(4.5);
+            produtoResposta1.setDataPreco(LocalDate.now());
+
+
+            ProdutoMercadoEntity produtoResposta2 = new ProdutoMercadoEntity();
+            produtoResposta2.setProduto(produtoTeste); // IMPORTANTE: É O MESMO PRODUTO PARA AS DUAS RELAÇÕES
+            produtoResposta2.setMercado(new MercadoEntity()); 
+            produtoResposta2.getMercado().setBairro("Centro");
+            produtoResposta2.getMercado().setRedMercado(new RedEntity());
+            produtoResposta2.getMercado().getRedMercado().setNomeRed("Zaffari"); // Assignamos o nome da red de mercados tendo já criado a nova red na línea anterior
+            produtoResposta2.setPreco(3.95);
+            produtoResposta2.setDataPreco(LocalDate.now());
+
+            // Agora devemos criar o Mock
+            when(produtoMercadoRepository.findByProduto_NomeContainingIgnoreCase("Leite"))
+            .thenReturn(List.of(produtoResposta1, produtoResposta2));
+
+        //ACT
+            //Aqui executo o teste do método do service que estou querendo testar
+            List<ProdutoRespostaDTO> resposta = produtoService.buscarProdutoContendoNome("Leite");
+
+        //ASSERT
+
+            // Espero testar que tem apenas um produto na lista (Leite)
+            assertEquals(1, resposta.size()); 
+
+            // Espero achar dois registros de preços para o produto Leite. 0 é a posição do único produto na lista
+            assertEquals(2, resposta.get(0).getPrecosMercados().size());
+
+            // Espero testar que o produto que está na lista é Leite Integral
+            assertEquals("Leite Integral", resposta.get(0).getNomeProduto());
+
+            // Espero testar que o primeiro preço do leite é 4.5
+            assertEquals(4.5, resposta.get(0).getPrecosMercados().get(0).getPreco());
     }
 
 }

@@ -86,7 +86,7 @@ public class ProdutoService {
                 precoMercado.setDataPreco(productMarket.getDataPreco());
                 precoMercado.setDataValidade(productMarket.getDataValidade());
 
-                //Adicionando a lista de precosMercados (List<PrecoComMercadoDTO>) o novo preço e mercado
+                //Adicionando à lista de precosMercados (List<PrecoComMercadoDTO>) o novo preço e mercado
                 //MUITO IMPORTANTE: Estou pegando a lista que já existe (nem que seja vazia) e estou adicionando o objeto PrecoComMercado à lista, é por isso que uso o getPrecosMercados, para pegar a lista e adicionar o objeto
                 produtoDTO.getPrecosMercados().add(precoMercado);
 
