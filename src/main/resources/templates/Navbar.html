@@ -1,9 +1,21 @@
+<div class="container-md">
 
-    <center>
-    <nav class="navbar">
-        <a th:href="@{/produtos/cadastroProdutos}">Cadastro de Produto</a>
-        <a th:href="@{/mercados/cadastroMercados}">Cadastro de Mercado</a>
-        <!-- <a th:href="@{/produtos/listadoProdutos}">Buscar Produtos</a> -->
-        <a th:href="@{/}">Buscar Produtos</a>
+    <nav class="navbar navbar-light bg-light justify-content-center" >
+    
+        <ul class="navbar-nav flex-row"> <!-- Como o navbar-nav funciona alinhando em coluna coloco o flex-row para alinhar em fila os itens da lista -->
+            <li class="nav-item active me-3"> <!-- O me significa margin end ou margem à direita em 3 -->
+                <a class="btn btn-outline-primary" th:href="@{/}">Buscar Produtos</a> <!-- Coloco o botão como outline para ter apenas o contorno dele e ser mais leve -->
+            </li>
+
+            <li class="nav-item active me-3">
+                <a class="btn btn-outline-secondary" th:href="@{/produtos/cadastroProdutos}">Cadastro de Produto</a>
+            </li>
+    
+            <li class="nav-item active">
+                <a class="btn btn-outline-secondary" th:href="@{/mercados/cadastroMercados}">Cadastro de Mercado</a>
+            </li>
+        </ul>
+    
     </nav>
-    </center>
+
+</div>

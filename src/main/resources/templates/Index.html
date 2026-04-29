@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consulta de produtos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <!-- 
     <link rel="stylesheet" type = "text/css" th:href="@{'/css/' + ${nomeNoControlador} + '.css'}" />
     -->
@@ -11,24 +14,35 @@
 
 <body>
 
-<header th:insert="~{Navbar.html :: nav}"></header>
+    <header th:insert="~{Navbar.html :: nav}"></header>
 
-<div class="formPesquisa">
+    <div class="formPesquisa">
 
         <form th:action="@{/}" method="POST" th:object="${ProdutoEntity}">
-            <div class="pesquisa-produto">
 
-                <h4>Pesquise um produto de mercado</h4>
-                    <p>
-                        <input type="text" th:field="${Produto.nome}" />
-                    </p>
-            </div>    
-                
-            <div class="botoes-pesquisa">
-                <button type="submit"> Pesquisar </button>
+<!-- Ulilizo o form-group para agrupar os elementos do form, o d-flex para ativar o flexbox, 
+ flex-column para declarar a direção do flex em coluna, justify-content-center para centralizar 
+ no eixo das Y (coluna), align-items-center para centralizar no eixo X (fila) e, vh-100 para 
+ usar o 100% da tela para o centrado -->
+            <div class="pesquisa-produto 
+                        form-group 
+                        d-flex 
+                        flex-column 
+                        justify-content-center 
+                        align-items-center 
+                        vh-100">
+
+                <input class="form-control-lg me-sm-2" type="text" th:field="${Produto.nome}"
+                    placeholder="Buscar produto" id="inputBuscar" aria-describedby="ajudaBuscar" />
+
+                <small id="ajudaBuscar" class="form-text text-muted">Pesquise um produto de supermercado</small>
+
+                <button class="btn btn-success btn-lg my-2" type="submit"> Pesquisar </button>
             </div>
-            
-        </form>
+
+    </div>
+    </form>
 
 </body>
-</html> 
+
+</html>
