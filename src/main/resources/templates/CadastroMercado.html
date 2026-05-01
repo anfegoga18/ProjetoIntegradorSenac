@@ -11,74 +11,78 @@ No fragmento está a parte :: nav, aquilo quer dizer que o nome do fragmento vai
 <header th:insert="~{Navbar.html :: nav}"></header>
 
 <body>
-    <h1>Página de cadastro de Mercado</h1>
-    
-    <p>Bem-vindo, cá pode fazer o cadastro dos mercados no banco de dados</p>
     
 <!--Cuidar para que o que está entre ${} seja o nome passado no objeto Model que vai em forma de 
 chave : valor , pois não tem a ver como está instanciado o objeto e sim a nome no model.-->
 
-    <div class="formMercados">
+    <div class="formMercados mx-md-3 mx-sm-1">
+
+        <h1 class="text-primary">Página de cadastro de Mercado</h1>
+    
+        <p>Bem-vindo, cá pode fazer o cadastro dos mercados no banco de dados</p>
 
         <form th:action="@{/mercados/cadastroMercados}" method="POST" th:object="${MercadoFormularioDTO}"><!--O th:object nos diz o tipo de objeto que está sendo passado no POST-->
             <div class="cadastro-mercado">
-                <p>
+                <div class="form-group">
                     <label for="id">Id: </label>
-                    <input type="hidden" th:field="${MercadoForm.MercadoId}" /><!--Fica como hidden para evitar inserir um id que já é gerenciado pelo banco de dados, mas necessário quando há atualização num registro-->
-                </p>
+                    <input type="hidden" id="id" th:field="${MercadoForm.MercadoId}" /><!--Fica como hidden para evitar inserir um id que já é gerenciado pelo banco de dados, mas necessário quando há atualização num registro-->
+                </div>
                 
-                <p>
+                <div class="form-group col-12 col-sm-6">
                     <label for="bairro">Bairro: </label> 
-                    <input type="text" th:field="${MercadoForm.bairro}" required/>
-                </p>
+                    <input type="text" id="bairro" class="form-control" th:field="${MercadoForm.bairro}" required/>
+                </div>
                 
-                <p>
+                <div class="form-group col-12 col-sm-6">
                     <label for="endereco">Endereço: </label> 
-                    <input type="text" th:field="${MercadoForm.endereco}" required/>
-                </p>
+                    <input type="text" id="endereco" class="form-control" th:field="${MercadoForm.endereco}" required/>
+                </div>
                 
                 
-                <p>
+                <div class="form-group col-12 col-sm-6">
                     <label for="numero">Número: </label> 
-                    <input type="text" th:field="${MercadoForm.numero}" required/>
-                </p>
+                    <input type="text" id="numero" class="form-control" th:field="${MercadoForm.numero}" required/>
+                </div>
                 
-                <p>
+                <div class="form-group col-12 col-sm-6 mb-2">
                     <label for="cep">CEP: </label> 
-                    <input type="text" th:field="${MercadoForm.cep}" required/>
-                </p>
+                    <input type="text" id="cep" class="form-control" aria-describedby="Cep" th:field="${MercadoForm.cep}" required/>
+                    <small id="Cep" class="text-form text-muted"> Insira o CEP no formato 00000-000</small>
+                </div>
                 
-                <p>
+                <div class="form-group col-12 col-sm-6">
                     <label for="cidade">Cidade: </label> 
-                    <input type="text" th:field="${MercadoForm.cidade}" required/>
-                </p>
+                    <input type="text" id="cidade" class="form-control" th:field="${MercadoForm.cidade}" required/>
+                </div>
                 
-                <p>
+                <div class="form-group col-12 col-sm-6 mb-2">
                     <label for="telefone">Telefone: </label> 
-                    <input type="text" th:field="${MercadoForm.telefone}" required/>
-                </p>
+                    <input type="text" id="telefone" class="form-control" aria-describedby="tel" th:field="${MercadoForm.telefone}" required/>
+                    <small id="tel" class="text-form text-muted" > Escreva o DDD-telefone</small>
+                </div>
                 
-                <p>
+                <div class="form-group col-12 col-sm-6">
                     <label for="site">Página web: </label> 
-                    <input type="text" th:field="${MercadoForm.site}" required/>
-                </p>
+                    <input type="text" id="site" class="form-control" th:field="${MercadoForm.site}" required/>
+                </div>
                 
-                <p>
+                <div class="form-group col-12 col-sm-6 mb-2">
                     <label for="teleEntrega">Tele-entrega?: </label> 
-                    <input type="text" th:field="${MercadoForm.teleEntrega}" required/>
-                </p>
+                    <input type="text" id="teleEntrega" class="form-control" aria-describedby="tele" th:field="${MercadoForm.teleEntrega}" required/>
+                    <small id="tele" class="text-form text-muted" > Escreva S para Sim e N para Não</small>
+                </div>
                 
-                <p>
+                <div class="form-group col-12 col-sm-6">
                     <label for="uf">UF/Estado/Dpto:  </label> 
-                    <input type="text" th:field="${MercadoForm.uf}" required/>
-                </p>
+                    <input type="text" id="uf" class="form-control" th:field="${MercadoForm.uf}" required/>
+                </div>
 
-                <h3>Seleção da Red de Mercados</h3>
+                <h3 class="text-secondary my-2">Seleção da Red de Mercados</h3>
 
-                <p>
+                <div class="col-12 col-sm-6">
                     <label for="red"> Selecione uma red de mercados </label> 
                     <!-- Caixa de seleção da red de mercados -->
-                     <select name="redId" id="red" required> <!-- Muito importante: o name no html deve coincidir com o atributo no DTO -->
+                     <select class="form-select" name="redId" id="red" required> <!-- Muito importante: o name no html deve coincidir com o atributo no DTO -->
                             <option value="">-- Selecione--</option>
                             <option th:each="red : ${Redes}"
                                     th:value = "${red.id}" 
@@ -87,14 +91,16 @@ chave : valor , pois não tem a ver como está instanciado o objeto e sim a nome
 
                      </select>
 
+                    <div class="mb-3">
                     <!-- Link de redirecionamento caso seja necessário criar a rede por não estar na lista -->
-                     <a th:href="@{/mercados/cadastroMercados/red}">Cadastro Red de Mercados</a>
-                </p>
+                    <a class="link-primary" th:href="@{/mercados/cadastroMercados/red}">Cadastro Red de Mercados</a>
+                    </div>
+                </div>
 
             </div>    
                 
             <div class="botoes-cadastro">
-                <button type="submit"> Cadastrar Mercado </button>
+                <button type="submit" class="btn btn-success"> Cadastrar Mercado </button>
             </div>
             
         </form>

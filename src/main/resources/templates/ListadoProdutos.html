@@ -46,7 +46,7 @@ No fragmento está a parte :: nav, aquilo quer dizer que o nome do fragmento vai
                 <td th:text="${produto.marca}"></td>
                 <td th:text="${produto.udMedida}"></td>
                 <td th:text="${produto.quantidadeConteudo}"></td>
-                <td th:text="${preco.preco} - ${preco.moeda}"></td>
+                <td th:text="${preco.preco + ' - ' + preco.moeda}"></td>
                 <td th:text="${preco.dataPreco}"></td>
                 <td th:text="${preco.dataValidade}"></td>
                 <td th:text="${preco.bairro + ' - ' + preco.redMercado}"></td>

@@ -53,13 +53,15 @@ CREATE DATABASE Mercado;
 
 | **Método** | **Endpoints** | **Descrição** |  
 | --- | --- | --- |  
-|   |   |   |  
-
+| GET  | http://localhost:8080/  | Tela para buscar o produto  |  
+|---|
 
 - ### Endpoints do administrador  
 
 | **Método** | **Endpoints** | **Descrição** |  
 | --- | --- | --- |  
-|   |   |   |
+| POST | http://localhost:8080/mercados/cadastroMercados    | Cadastro de um mercado    |
+| POST | http://localhost:8080/produtos/cadastroProdutos    | Cadastro de um produto    |
+| POST | http://localhost:8080/mercados/cadastroMercados/red | Cadastro de red de mercado |
 
 
