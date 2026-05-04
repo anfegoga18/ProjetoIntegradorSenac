@@ -8,27 +8,29 @@ No fragmento está a parte :: nav, aquilo quer dizer que o nome do fragmento vai
 <header th:insert="~{navbar.html :: nav}"></header>
 
 <body>
-    <h2>Resultados da busca</h2>
+
+<div class="mx-md-3 mx-sm-1">
+    <h2 class="text-secondary mb-3">Resultados da busca</h2>
 
     <!--Vindo resultados na busca-->
-    <table>
+    <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>Tipo</th>
-                <th>Categoria</th>
-                <th>Marca</th>
-                <th>Ud Medida</th>
-                <th>Qde Conteudo</th>
+                <th scope="col">Id</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Marca</th>
+                <th scope="col">Ud Medida</th>
+                <th scope="col">Qde Conteudo</th>
                 <!-- Info de preços -->
-                <th>Preço</th>
-                <th>Data Preço</th>
-                <th>Data Validade</th>
+                <th scope="col">Preço</th>
+                <th scope="col">Data Preço</th>
+                <th scope="col">Data Validade</th>
                 <!-- Info de mercado -->
-                <th>Mercado</th>
+                <th scope="col">Mercado</th>
                 <!-- Status -->
-                <th>Status</th>
+                <th scope="col">Status</th>
             </tr>
         </thead>
         <tbody>
@@ -63,5 +65,7 @@ No fragmento está a parte :: nav, aquilo quer dizer que o nome do fragmento vai
         <span th:text="${Mensagem}"></span>
     </div>
     
+</div>
+
 </body>
 </html>
