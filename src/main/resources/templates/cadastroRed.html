@@ -11,32 +11,35 @@ No fragmento está a parte :: nav, aquilo quer dizer que o nome do fragmento vai
 <header th:insert="~{Navbar.html :: nav}"></header>
 
 <body>
-    <h1>Página de cadastro de  Red de Mercados</h1>
-    
-    <p>Bem-vindo, cá pode fazer o cadastro da rede de supermercados</p>
     
 <!--Cuidar para que o que está entre ${} seja o nome passado no objeto Model que vai em forma de 
 chave : valor , pois não tem a ver como está instanciado o objeto e sim a nome no model.-->
 
-    <div class="formMercados">
+    <div class="formMercados mx-md-3 mx-sm-1">
+
+        <h1 class="text-primary">Página de cadastro de  Red de Mercados</h1>
+    
+        <p>Bem-vindo, cá pode fazer o cadastro da rede de supermercados</p>
 
         <form th:action="@{/mercados/cadastroMercados/red}" method="POST" th:object="${RedEntity}"><!--O th:object nos diz o tipo de objeto que está sendo passado no POST-->
             <div class="cadastro-mercado">
-                <p>
+
+                <div class="form-group">
                     <label for="id">Id: </label>
                     <input type="hidden" th:field="${Red.id}" /><!--Fica como hidden para evitar inserir um id que já é gerenciado pelo banco de dados, mas necessário quando há atualização num registro-->
-                </p>
+                </div>
                 
-                <p>
+                <div class="form-group d-flex flex-column col-12 col-sm-6">
                     <label for="nomeRed">Red: </label> 
-                    <input type="text" th:field="${Red.nomeRed}" required/>
-                </p>
+                    <input type="text" aria-describedby="red" th:field="${Red.nomeRed}" required/>
+                    <small id="red" class="text-form text-muted"> Insira o nome da red (Wallmart, Carrefour, Záffari, etc) ou o nome do mercado se existir apenas um local.</small>
+                </div>
 
 
             </div>    
                 
-            <div class="botoes-cadastro">
-                <button type="submit"> Cadastrar Red </button>
+            <div class="botoes-cadastro mt-2">
+                <button class="btn btn-success" type="submit"> Cadastrar Red </button>
             </div>
             
         </form>

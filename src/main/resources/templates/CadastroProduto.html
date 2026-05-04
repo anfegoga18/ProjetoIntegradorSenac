@@ -11,68 +11,74 @@ No fragmento está a parte :: nav, aquilo quer dizer que o nome do fragmento vai
 <header th:insert="~{Navbar.html :: nav}"></header>
 
 <body>
-    <h1>Página de cadastro de Produto</h1>
     
-    <p>Bem-vindo, cá pode fazer o cadastro dos produtos no banco de dados</p>
     
 <!--Cuidar para que o que está entre ${} seja o nome passado no objeto Model que vai em forma de 
 chave : valor , pois não tem a ver como está instanciado o objeto e sim a nome no model.-->
 
-    <div class="formProdutos">
+    <div class="formProdutos mx-md-3 mx-sm-1">
+
+        <h1 class="text-primary">Página de cadastro de Produto</h1>
+    
+        <p>Bem-vindo, cá pode fazer o cadastro dos produtos no banco de dados</p>
 
         <form th:action="@{/produtos/cadastroProdutos}" method="POST" th:object="${ProdutoFormularioDTO}"><!--O th:object nos diz o tipo de objeto que está sendo passado no POST, neeste caso é o ProdutoFormularioDTO que contém as informações compiladas das 3 entidades envolvidas no formulário (Produto, Mercado, ProdutoMercado). Aliás o Thymeleaf só aceita um objeto no formulário e por causa disso foi necessário criar o DTO-->
             <div class="cadastro-produto">
 
-                <h3>Produto</h3>
+                <h3 class="text-secondary my-2">Produto</h3>
 
-                <p>
+                <div class="form-group">
                     <label for="id">Id: </label>
                     <input type="hidden" th:field="${ProdutoForm.produtoId}" /><!--Fica como hidden para evitar inserir um id que já é gerenciado pelo banco de dados, mas necessário quando há atualização num registro-->
-                </p>
+                </div>
                 
-                <p>
+                <div class="form-group col-12 col-sm-6">
                     <label for="nome">Produto: </label> 
-                    <input type="text" th:field="${ProdutoForm.nome}" required/>
-                </p>
+                    <input type="text" class="form-control" th:field="${ProdutoForm.nome}" required/>
+                </div>
                 
-                <p>
+                <div class="form-group col-12 col-sm-6 mb-2">
                     <label for="tipo">Tipo: </label> 
-                    <input type="text" th:field="${ProdutoForm.tipo}" required/>
-                </p>
+                    <input type="text" class="form-control" th:field="${ProdutoForm.tipo}" aria-describedby="Tipo" required/>
+                    <small id="Tipo" class="text-form text-muted" > Escreva o tipo do produto, ex: inteira (leite), oliva (azeite), parborizado (arroz), etc.</small>
+                </div>
                 
                 
-                <p>
+                <div class="form-group col-12 col-sm-6 mb-2">
                     <label for="categoria">Categoria: </label> 
-                    <input type="text" th:field="${ProdutoForm.categoria}" required/>
-                </p>
+                    <input type="text" class="form-control" th:field="${ProdutoForm.categoria}" aria-describedby="category" required/>
+                    <small id="category" class="text-form text-muted" > Escreva uma categoria, ex: limpeza, café da manhã, grãos, azeites; que represente o produto</small>
+                </div>
                 
-                <p>
+                <div class="form-group col-12 col-sm-6">
                     <label for="marca">Marca: </label> 
-                    <input type="text" th:field="${ProdutoForm.marca}" required/>
-                </p>
+                    <input type="text" class="form-control" th:field="${ProdutoForm.marca}" required/>
+                </div>
                 
-                <p>
+                <div class="form-group col-12 col-sm-6 mb-2">
                     <label for="udMedida">Unidade de medida: </label> 
-                    <input type="text" th:field="${ProdutoForm.udMedida}" required/>
-                </p>
+                    <input type="text" class="form-control" th:field="${ProdutoForm.udMedida}" aria-describedby="ud" required/>
+                    <small id="ud" class="text-form text-muted" > Escreva ml (mililitro), kg (kilograma), L (Litro), ud (unidade), cm3 (centimetro cúbico) ou outro conforme seja no produto</small>
+                </div>
                 
-                <p>
+                <div class="form-group col-12 col-sm-6">
                     <label for="quantidade_conteudo">Qtd de produto: </label> 
-                    <input type="number" step="0.01"  th:field="${ProdutoForm.quantidadeConteudo}" required/>
-                </p>
+                    <input type="number" class="form-control" step="0.01"  th:field="${ProdutoForm.quantidadeConteudo}" required/>
+                </div>
                 
-                <p>
-                    <label for="status">Status do produto: </label> 
-                    <input type="checkbox" th:field="${ProdutoForm.status}" required/>
-                </p>
+                <div class="form-check col-12 col-sm-6 my-3">
+                    <label class="form-check-label" for="status" aria-describedby="Status" >Status do produto: </label> 
+                    <input type="checkbox" id="status" class="form-check-input" th:field="${ProdutoForm.status}" required/>
+                    <small id="Status" class="text-form text-muted" > Marque se for um produto ativo ou novo</small>
+                </div>
 
 
-                <h3>Seleção do Mercado</h3>
+                <h3 class="text-secondary my-2">Seleção do Mercado</h3>
 
-                <p>
+                <div class="form-group col-12 col-sm-6">
                     <label for="mercado"> Selecione um mercado </label> 
                     <!-- Caixa de seleção do mercado -->
-                     <select name="mercadoId" id="mercado" required> <!-- Muito importante: o name no html deve coincidir com o atributo no DTO -->
+                     <select class="form-select" name="mercadoId" id="mercado" required> <!-- Muito importante: o name no html deve coincidir com o atributo no DTO -->
                             <option value="">-- Selecione--</option>
                             <!-- Cá no value utilizo id ao invés de mercadoId, pois mercado é um MercadoEntity, já o name do select tem mercadoId que é como está no DTO -->
                             <option th:each="mercado : ${Mercados}"
@@ -82,39 +88,43 @@ chave : valor , pois não tem a ver como está instanciado o objeto e sim a nome
 
                      </select>
 
-                     <!-- Link de redirecionamento caso seja necessário cadastrar um mercado por não estar na lista -->
-                     <a th:href="@{/mercados/cadastroMercados}">Cadastro de Mercados</a>
+                    <div class="mb-3">
+                        <!-- Link de redirecionamento caso seja necessário cadastrar um mercado por não estar na lista -->
+                        <a class="link-primary" th:href="@{/mercados/cadastroMercados}">Cadastro de Mercados</a>
+                    </div>
 
-                </p>
+                </div>
 
                 
-                <h3>Informações do produto no mercado</h3>
+                <h3 class="text-secondary my-2">Informações do produto no mercado</h3>
 
-                <p>
+                <div class="form-group col-12 col-sm-6 my-3">
                     <label for="preco">Preço: </label> 
-                    <input type="number" step="0.01"  th:field="${ProdutoForm.preco}" required/>
-                </p>
+                    <input type="number" class="form-control" step="0.01"  th:field="${ProdutoForm.preco}" aria-describedby="Preco" required/>
+                    <small id="Preco" class="text-form text-muted" > Se o valor tiver decimais, separe-os com ponto (.)</small>
+                </div>
                 
-                <p>
+                <div class="form-group col-12 col-sm-6 my-3">
                     <label for="moeda">Moeda: </label> 
-                    <input type="text" th:field="${ProdutoForm.moeda}" required/>
-                </p>
+                    <input type="text" class="form-control" th:field="${ProdutoForm.moeda}" aria-describedby="Moeda" required/>
+                    <small id="Moeda" class="text-form text-muted" > Escreva a moeda com a abreviatura, ex: BRL (real brasileiro)</small>
+                </div>
                 
-                <p>
+                <div class="form-group col-12 col-sm-6">
                     <label for="dataPreco">Data do preço: </label> 
-                    <input type="date" th:field="${ProdutoForm.dataPreco}" required/>
-                </p>
+                    <input type="date" class="form-control" th:field="${ProdutoForm.dataPreco}" required/>
+                </div>
                 
-                <p>
+                <div class="form-group col-12 col-sm-6">
                     <label for="dataValidade">Data de validade: </label> 
-                    <input type="date" th:field="${ProdutoForm.dataValidade}" required/>
-                </p>
+                    <input type="date" class="form-control" th:field="${ProdutoForm.dataValidade}" required/>
+                </div>
                 
 
             </div>    
                 
-            <div class="botoes-cadastro">
-                <button type="submit"> Cadastrar </button>
+            <div class="botoes-cadastro mt-3">
+                <button class="btn btn-success" type="submit"> Cadastrar </button>
             </div>
             
         </form>
