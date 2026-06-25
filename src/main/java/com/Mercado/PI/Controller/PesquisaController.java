@@ -39,7 +39,15 @@ public class PesquisaController {
     
     @PostMapping("/")
     public String mostrarProdutoPesquisado (@RequestParam String nome , Model model){
+
+        /* Antes de prosseguir para uma busca e chamar o serviço, verifico que o campo de busca contem um produto 
+        pois em caso contrario ele vai trazer todos os registros do banco de dados*/
+        if(nome == null || nome.trim().isBlank()){
+            model.addAttribute("Mensagem", "Não é possivel ter um resultado para a pesquisa com o campo em branco (Vazio)");
+            return "ListadoProdutos";
+        }
         
+        /* Depois de conferir que não foi campo vazio posso ver o que não está, ou não, no banco de dados */
         List<ProdutoRespostaDTO> produtos = produtoService.buscarProdutoContendoNome(nome);
 
         if(produtos.isEmpty()){
